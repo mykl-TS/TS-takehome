@@ -1,5 +1,5 @@
 import '../styles/optionsPicker.css'
-import TabBar from './UI/tabBar'
+import TabBar from './UI/TabBar'
 import { CustomizationOptions, TabData } from '../Types'
 import { customizationOptions } from '../Services'
 import { useState } from 'react'
@@ -18,7 +18,7 @@ const OptionsPicker = () => {
     ({label: tab.label, option: tab.option })
   )
 
-  const handleOnClick = (option?: string) => {
+  const handleOnClick = (option: string) => {
     if (option) setActiveTab(option)
     const optionValues = getDisplayOptions(customizationOptions, option)
     setDisplayOptions(optionValues)
@@ -45,7 +45,7 @@ const OptionsPicker = () => {
     <div className="options_picker_container">
       <TabBar
         tabData = {tabData}
-        handleOnClick = {handleOnClick}
+        handleOnClick = {(option:string) => handleOnClick(option)}
       />
       <div className="options_examples">
           {displayOptions.map((opt, i) => {

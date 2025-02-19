@@ -12,6 +12,6 @@ export const useOnUpdateAvatarList =  () => {
     })   
     return aList
   } catch(error) {
-    console.log(error)
+    console.error(error)
   }
 }

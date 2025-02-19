@@ -4,15 +4,15 @@ import { useState } from 'react'
 
 interface Props {
   tabData: TabData[]
-  handleOnClick: (e?:string) => void 
+  handleOnClick: (e:string) => void 
 }
 
 const TabBar = (props: Props) => {
   const {tabData, handleOnClick} = props
   const [activeTab, setActiveTab] = useState(tabData[0].option)
   
-  const onClick = () => {
-    const et:any = event?.target;
+  const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const et = event.target as HTMLButtonElement;
     setActiveTab(et.value)
     handleOnClick(et.value)
   }
@@ -26,7 +26,7 @@ const TabBar = (props: Props) => {
                       key= {`tab_${i}`}
                       value = {tab.option} 
                       className = {isActive ? "active" : "" }
-                      onClick={() => onClick()}>
+                      onClick={(event: React.MouseEvent<HTMLButtonElement>) => onClick(event)}>
                         {tab.label}
                       </button>
           }

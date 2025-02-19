@@ -16,21 +16,19 @@ function App() {
   const [avatarOptions, setAvatarOptions] = useState(defaultRobot)
   const [avatarList, setAvatarList] = useState(useOnUpdateAvatarList)
 
-  const updateName = () => {
-    const _O = {...avatarOptions}
-    _O.name = event?.target.value
-    setAvatarOptions(_O)    
+  const updateName = (event: React.ChangeEvent<HTMLInputElement>) => {  
+    if (avatarOptions && event.target.value !== undefined) {
+      setAvatarOptions({...avatarOptions, name: event.target.value})    
+    }
   }
 
   const saveAvatar = (url:string, name: string) => {
-    console.log(event?.target)
     try{
-      console.log("fire!!!")
       window.localStorage.setItem(generateKey(name), JSON.stringify({URL:url, name:name}))
       setAvatarList(useOnUpdateAvatarList())
       setAvatarOptions(defaultRobot)
     } catch(error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -44,7 +42,7 @@ function App() {
               <div className="avatar_creator">
                 <SaveButton
                   disabled={avatarOptions?.name==="" ? true : false} 
-                  handleOnClick={() => {saveAvatar(buildURL(avatarOptions), avatarOptions?.name)}}
+                  handleOnClick={() => {saveAvatar(buildURL(avatarOptions), avatarOptions?.name || "")}}
                 >+</SaveButton>
 
                 <AvatarPreview
@@ -52,10 +50,11 @@ function App() {
                 <div className="row">
                   <TextInput 
                     label=""
+                    avatarName={avatarOptions?.name || ""}
                     value={avatarOptions?.name || "" }
                     name="avatar_name"
                     placeholder="Name Me!" 
-                    handleOnChange={updateName}
+                    handleOnChange={(event: React.ChangeEvent<HTMLInputElement>) => updateName(event)}
                   />
                 </div>
                 <div className="row">
