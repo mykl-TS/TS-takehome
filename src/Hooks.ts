@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { AvatarContext, AvatarListContext } from './context';
+import { AvatarContext, AvatarListContext } from './context/AvatarProvider';
 import { AvatarList } from './Types';
 import { defaultRobot, generateKey } from './Services';
 

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { AvatarContext } from '../../context';
+import { AvatarContext } from '../../context/AvatarProvider';
 import '../../styles/UI/textinput.css';
 import { AvatarOptions } from '../../Types';
 

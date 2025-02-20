@@ -1,6 +1,6 @@
 import { PropsWithChildren, useContext } from 'react';
 import '../../styles/UI/SaveButton.css';
-import { AvatarContext } from '../../context';
+import { AvatarContext } from '../../context/AvatarProvider';
 import { useOnUpdateAvatarList } from '../../Hooks';
 import { buildURL } from '../../Services';
 
