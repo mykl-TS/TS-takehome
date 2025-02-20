@@ -1,6 +1,5 @@
 import { useOnUpdateAvatarList } from './../Hooks'
-import { useContext } from 'react'
-import { AvatarListContext } from './../context'
+import { useAvatarListContext } from '../context/AvatarListContext'
 import '../styles/robotListItem.css'
 
 interface Props {
@@ -11,11 +10,11 @@ interface Props {
 
 const RobotListItem = (props: Props) => {
   const {keyName, name, url} = props
-  const {avatarList, setAvatarList} = useContext(AvatarListContext)
+  const {setAvatarList} = useAvatarListContext()
 
-  const deleteAvatar = (keyN:string) => {
+  const deleteAvatar = (keyName:string) => {
     try {
-      window.localStorage.removeItem(keyN)
+      window.localStorage.removeItem(keyName)
     } catch(error){
       console.log(error)
     }

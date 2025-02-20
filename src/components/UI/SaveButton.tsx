@@ -1,20 +1,32 @@
 import { PropsWithChildren } from 'react'
 import '../../styles/UI/SaveButton.css'
+import { defaultRobot, generateKey } from '../../Services'
+import { useOnUpdateAvatarList } from '../../Hooks'
+import { useAvatarContext } from '../../context/AvatarContext'
+import { useAvatarListContext } from '../../context/AvatarListContext'
+import { useAvatarURLContext } from '../../context/AvatarURLContext'
+const SaveButton = (props:PropsWithChildren) => {
+  const {children } = props
+  const {avatarOptions, setAvatarOptions} = useAvatarContext()
+  const {setAvatarList} = useAvatarListContext()
+  const {avatarURL} = useAvatarURLContext()
 
-interface Props {
-  disabled: boolean
-  handleOnClick: ()=>void
-}
-
-const SaveButton = (props:PropsWithChildren<Props>) => {
-  const {children, disabled, handleOnClick} = props
+  const saveAvatar = () => {
+    try{
+      window.localStorage.setItem(generateKey(avatarOptions?.name || ""), JSON.stringify({URL: avatarURL, name:avatarOptions?.name || ""}))
+      setAvatarList(useOnUpdateAvatarList())
+      setAvatarOptions(defaultRobot)
+    } catch(error) {
+      console.error(error)
+    }
+  }
   
   return (
     <>
       <button
         className="save_button"
-        disabled={disabled}
-        onClick = {handleOnClick}
+        disabled={avatarOptions?.name === ""}
+        onClick = {() => saveAvatar()}
       >
         <span>
           {children}

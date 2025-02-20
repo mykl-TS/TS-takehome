@@ -1,9 +1,8 @@
-import { useContext } from 'react'
 import '../styles/avatarPreview.css'
-import { AvatarURLContext } from '../context'
+import { useAvatarURLContext } from '../context/AvatarURLContext'
 
 const AvatarPreview = () => {
-  const avatarURL = useContext(AvatarURLContext)
+  const { avatarURL } = useAvatarURLContext()
 
   return (
       <div className="avatar_preview_container">

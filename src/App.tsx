@@ -3,46 +3,22 @@ import AvatarPreview from './components/AvatarPreview'
 import OptionsPicker from './components/OptionsPicker'
 import ColorPicker from './components/UI/ColorPicker'
 import TextInput from './components/UI/TextInput'
-import { useState } from 'react'
-import { useOnUpdateAvatarList } from './Hooks'
-import { AvatarContext, AvatarURLContext, AvatarListContext } from './context'
-import { generateKey,buildURL, defaultRobot } from './Services'
 import RobotListItem from './components/RobotListItem'
 import SaveButton from './components/UI/SaveButton'
+import { useAvatarContext } from './context/AvatarContext'
+import { useAvatarListContext } from './context/AvatarListContext'
 
 
 function App() {
-
-  const [avatarOptions, setAvatarOptions] = useState(defaultRobot)
-  const [avatarList, setAvatarList] = useState(useOnUpdateAvatarList)
-
-  const updateName = (event: React.ChangeEvent<HTMLInputElement>) => {  
-    if (avatarOptions && event.target.value !== undefined) {
-      setAvatarOptions({...avatarOptions, name: event.target.value})    
-    }
-  }
-
-  const saveAvatar = (url:string, name: string) => {
-    try{
-      window.localStorage.setItem(generateKey(name), JSON.stringify({URL:url, name:name}))
-      setAvatarList(useOnUpdateAvatarList())
-      setAvatarOptions(defaultRobot)
-    } catch(error) {
-      console.error(error)
-    }
-  }
+  const { avatarOptions } = useAvatarContext()
+  const {avatarList} = useAvatarListContext()
 
   return (
     <div className="app_container">
-      <AvatarContext.Provider value = {{avatarOptions, setAvatarOptions}}>
-        <AvatarURLContext.Provider value = {buildURL(avatarOptions)}>
-          <AvatarListContext.Provider value = {{avatarList, setAvatarList}}>
 
             <div className="main">
               <div className="avatar_creator">
                 <SaveButton
-                  disabled={avatarOptions?.name==="" ? true : false} 
-                  handleOnClick={() => {saveAvatar(buildURL(avatarOptions), avatarOptions?.name || "")}}
                 >+</SaveButton>
 
                 <AvatarPreview
@@ -50,11 +26,8 @@ function App() {
                 <div className="row">
                   <TextInput 
                     label=""
-                    avatarName={avatarOptions?.name || ""}
-                    value={avatarOptions?.name || "" }
                     name="avatar_name"
                     placeholder="Name Me!" 
-                    handleOnChange={(event: React.ChangeEvent<HTMLInputElement>) => updateName(event)}
                   />
                 </div>
                 <div className="row">
@@ -73,9 +46,10 @@ function App() {
               </div>
               <div className="avatar_list">
                 <ul>
-                  { avatarList && avatarList.map((avatar) => {
+                  { avatarList && avatarList.map((avatar, index) => {
                       return (
                         <RobotListItem
+                          key={index}
                           keyName={avatar.key}
                           name={avatar.name}
                           url={avatar.URL}
@@ -86,9 +60,6 @@ function App() {
                 </ul>
               </div>
             </div>
-          </AvatarListContext.Provider>  
-        </AvatarURLContext.Provider>
-      </AvatarContext.Provider>
     </div>
   )
 }

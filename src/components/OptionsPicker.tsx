@@ -1,24 +1,23 @@
 import '../styles/optionsPicker.css'
 import TabBar from './UI/TabBar'
-import { CustomizationOptions, TabData } from '../Types'
+import { CustomizationOptions, TabData, OverrideOption } from '../Types'
 import { customizationOptions } from '../Services'
 import { useState } from 'react'
 import { buildURL } from '../Services'
-import { useContext } from 'react'
-import { AvatarContext } from '../context'
+import { useAvatarContext } from '../context/AvatarContext'
 
 
 
 const OptionsPicker = () => {
   
-  const {avatarOptions, setAvatarOptions} = useContext(AvatarContext)
-  const [activeTab, setActiveTab] = useState(customizationOptions[0].option)
+  const {avatarOptions, setAvatarOptions} = useAvatarContext()
+  const [activeTab, setActiveTab] = useState<OverrideOption["name"]>(customizationOptions[0].option as OverrideOption["name"])
   const [displayOptions, setDisplayOptions] = useState(customizationOptions[0].values)
   const tabData:TabData[] = customizationOptions.map( (tab:TabData) => 
     ({label: tab.label, option: tab.option })
   )
 
-  const handleOnClick = (option: string) => {
+  const handleOnClick = (option: OverrideOption["name"]) => {
     if (option) setActiveTab(option)
     const optionValues = getDisplayOptions(customizationOptions, option)
     setDisplayOptions(optionValues)
@@ -36,16 +35,16 @@ const OptionsPicker = () => {
   }
 
   const updateAvatar = (optKey:string, value:string) => {
-    const _O = {...avatarOptions}
-    _O[optKey]=value
-    setAvatarOptions(_O)
+    if (avatarOptions) {
+      setAvatarOptions({...avatarOptions, [optKey]: value})
+    }
   }
 
   return (
     <div className="options_picker_container">
       <TabBar
         tabData = {tabData}
-        handleOnClick = {(option:string) => handleOnClick(option)}
+        handleOnClick = {(option:string) => handleOnClick(option as OverrideOption["name"])}
       />
       <div className="options_examples">
           {displayOptions.map((opt, i) => {

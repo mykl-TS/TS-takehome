@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { useContext } from 'react'
-import { AvatarContext } from '../../context'
+import { useAvatarContext } from '../../context/AvatarContext'
 import { COLOR_PALETTE } from '../../Services'
 import '../../styles/UI/colorPicker.css'
 
@@ -12,14 +11,14 @@ interface Props {
 
 const ColorPicker = (props: Props) => {
   const {label, defaultColor, optionKey} = props; 
-  const {avatarOptions, setAvatarOptions} = useContext(AvatarContext)
+  const {avatarOptions, setAvatarOptions} = useAvatarContext()
   const [showPicker, setShowPicker] = useState(false)
   const palette = COLOR_PALETTE
   
   const handleOnClick = (optionKey:string, color: string) => {
-    const _O = {...avatarOptions}
-    _O[optionKey] = color
-    setAvatarOptions(_O)
+    if (avatarOptions) {
+      setAvatarOptions({...avatarOptions, [optionKey]: color})
+    }
   }
   
   return (
