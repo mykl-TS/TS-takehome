@@ -5,32 +5,33 @@ import { useOnUpdateAvatarList } from '../../Hooks'
 import { useAvatarContext } from '../../context/AvatarContext'
 import { useAvatarListContext } from '../../context/AvatarListContext'
 import { useAvatarURLContext } from '../../context/AvatarURLContext'
-const SaveButton = (props:PropsWithChildren) => {
-  const {children } = props
-  const {avatarOptions, setAvatarOptions} = useAvatarContext()
-  const {setAvatarList} = useAvatarListContext()
-  const {avatarURL} = useAvatarURLContext()
+const SaveButton = (props: PropsWithChildren) => {
+  const { children } = props
+  const { avatarOptions, setAvatarOptions } = useAvatarContext()
+  const { setAvatarList } = useAvatarListContext()
+  const { avatarURL } = useAvatarURLContext()
 
   const saveAvatar = () => {
-    try{
-      window.localStorage.setItem(generateKey(avatarOptions?.name || ""), JSON.stringify({URL: avatarURL, name:avatarOptions?.name || ""}))
+    try {
+      window.localStorage.setItem(
+        generateKey(avatarOptions?.name || ''),
+        JSON.stringify({ URL: avatarURL, name: avatarOptions?.name || '' })
+      )
       setAvatarList(useOnUpdateAvatarList())
       setAvatarOptions(defaultRobot)
-    } catch(error) {
+    } catch (error) {
       console.error(error)
     }
   }
-  
+
   return (
     <>
       <button
         className="save_button"
-        disabled={avatarOptions?.name === ""}
-        onClick = {() => saveAvatar()}
+        disabled={avatarOptions?.name === ''}
+        onClick={() => saveAvatar()}
       >
-        <span>
-          {children}
-        </span>
+        <span>{children}</span>
       </button>
     </>
   )

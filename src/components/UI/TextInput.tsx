@@ -2,25 +2,20 @@ import { useAvatarContext } from '../../context/AvatarContext'
 import '../../styles/UI/textinput.css'
 
 interface Props {
-  name: string;
-  label: string;
-  placeholder?: string; 
-  className?: string;
+  name: string
+  label: string
+  placeholder?: string
+  className?: string
 }
 
 const TextInput = (props: Props) => {
-  const { 
-    name,
-    label,
-    placeholder,
-    className,
-  } = props
+  const { name, label, placeholder, className } = props
 
   const { avatarOptions, setAvatarOptions } = useAvatarContext()
 
-  const updateName = (event: React.ChangeEvent<HTMLInputElement>) => {  
+  const updateName = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (avatarOptions && event.target.value !== undefined) {
-      setAvatarOptions({...avatarOptions, name: event.target.value})    
+      setAvatarOptions({ ...avatarOptions, name: event.target.value })
     }
   }
 
@@ -28,13 +23,15 @@ const TextInput = (props: Props) => {
     <>
       <label>
         {label}
-        <input 
+        <input
           name={name}
-          value={avatarOptions?.name || ""}
-          className={className ? className: ""}
+          value={avatarOptions?.name || ''}
+          className={className ? className : ''}
           type="Text"
-          placeholder={placeholder ? placeholder : ""}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {updateName(event)}}
+          placeholder={placeholder ? placeholder : ''}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            updateName(event)
+          }}
           maxLength={25}
         />
       </label>

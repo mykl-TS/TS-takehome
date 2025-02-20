@@ -1,5 +1,5 @@
-import { createContext, FC, PropsWithChildren, useContext, useState } from "react"
-import { AvatarList } from "../Types"
+import { createContext, FC, PropsWithChildren, useContext, useState } from 'react'
+import { AvatarList } from '../Types'
 
 export const AvatarListContext = createContext<AvatarListContextType | undefined>(undefined)
 
@@ -16,11 +16,15 @@ type AvatarListContextType = {
   setAvatarList: (avatarList: AvatarList) => void
 }
 
-type AvatarListProviderProps = PropsWithChildren<{defaultAvatarList: AvatarList}>
+type AvatarListProviderProps = PropsWithChildren<{ defaultAvatarList: AvatarList }>
 
-const AvatarListProvider: FC<AvatarListProviderProps> = ({children, defaultAvatarList}) => {
+const AvatarListProvider: FC<AvatarListProviderProps> = ({ children, defaultAvatarList }) => {
   const [avatarList, setAvatarList] = useState<AvatarList>(defaultAvatarList)
-  return <AvatarListContext.Provider value={{avatarList, setAvatarList}}>{children}</AvatarListContext.Provider>
+  return (
+    <AvatarListContext.Provider value={{ avatarList, setAvatarList }}>
+      {children}
+    </AvatarListContext.Provider>
+  )
 }
 
-export {AvatarListProvider}
+export { AvatarListProvider }

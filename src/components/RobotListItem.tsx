@@ -4,18 +4,18 @@ import '../styles/robotListItem.css'
 
 interface Props {
   keyName: string
-  name: string 
+  name: string
   url: string
 }
 
 const RobotListItem = (props: Props) => {
-  const {keyName, name, url} = props
-  const {setAvatarList} = useAvatarListContext()
+  const { keyName, name, url } = props
+  const { setAvatarList } = useAvatarListContext()
 
-  const deleteAvatar = (keyName:string) => {
+  const deleteAvatar = (keyName: string) => {
     try {
       window.localStorage.removeItem(keyName)
-    } catch(error){
+    } catch (error) {
       console.log(error)
     }
     setAvatarList(useOnUpdateAvatarList())
@@ -25,16 +25,12 @@ const RobotListItem = (props: Props) => {
     <>
       <li key={keyName} className="avatar_item_container">
         <span className="item_avatar">
-          <img
-            src={url}
-            alt={`robot avatar`}
-          />
+          <img src={url} alt={`robot avatar`} />
         </span>
         <span className="avatar_item_name">{name}</span>
-        <button 
-          className="avatar_delete"
-          onClick={() => deleteAvatar(keyName)}
-          >X</button>
+        <button className="avatar_delete" onClick={() => deleteAvatar(keyName)}>
+          X
+        </button>
       </li>
     </>
   )
