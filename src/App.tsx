@@ -1,14 +1,14 @@
-import './styles/App.css';
+import { useState } from 'react';
 import AvatarPreview from './components/AvatarPreview';
 import OptionsPicker from './components/OptionsPicker';
 import ColorPicker from './components/UI/ColorPicker';
 import TextInput from './components/UI/TextInput';
-import { useState } from 'react';
 import { useOnUpdateAvatarList } from './Hooks';
 import { AvatarContext, AvatarURLContext, AvatarListContext } from './context';
-import { generateKey, buildURL, defaultRobot } from './Services';
+import { buildURL, defaultRobot } from './Services';
 import SaveButton from './components/UI/SaveButton';
 import RobotList from './components/RobotList/RobotList';
+import './styles/App.css';
 
 function App() {
 	const [avatarOptions, setAvatarOptions] = useState(defaultRobot);
@@ -21,19 +21,6 @@ function App() {
 		setAvatarOptions(_O);
 	};
 
-	const saveAvatar = (URL: string, name: string) => {
-		try {
-			window.localStorage.setItem(
-				generateKey(name),
-				JSON.stringify({ URL, name })
-			);
-			setAvatarList(avatarData);
-			setAvatarOptions(defaultRobot);
-		} catch (error) {
-			console.error(error);
-		}
-	};
-
 	return (
 		<div className='app_container'>
 			<AvatarContext.Provider value={{ avatarOptions, setAvatarOptions }}>
@@ -41,15 +28,7 @@ function App() {
 					<AvatarListContext.Provider value={{ avatarList, setAvatarList }}>
 						<div className='main'>
 							<div className='avatar_creator'>
-								<SaveButton
-									disabled={avatarOptions?.name === '' ? true : false}
-									handleOnClick={() => {
-										saveAvatar(buildURL(avatarOptions), avatarOptions?.name);
-									}}
-								>
-									+
-								</SaveButton>
-
+								<SaveButton>+</SaveButton>
 								<AvatarPreview />
 								<div className='row'>
 									<TextInput

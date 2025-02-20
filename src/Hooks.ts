@@ -1,9 +1,11 @@
 import { useContext } from 'react';
-import { AvatarListContext } from './context';
+import { AvatarContext, AvatarListContext } from './context';
 import { AvatarList } from './Types';
+import { defaultRobot, generateKey } from './Services';
 
 export const useOnUpdateAvatarList = () => {
 	const { setAvatarList } = useContext(AvatarListContext);
+	const { setAvatarOptions } = useContext(AvatarContext);
 
 	const getAvatars = () => {
 		try {
@@ -23,6 +25,19 @@ export const useOnUpdateAvatarList = () => {
 		}
 	};
 
+	const saveAvatar = (URL: string, name: string) => {
+		try {
+			window.localStorage.setItem(
+				generateKey(name),
+				JSON.stringify({ URL, name })
+			);
+			setAvatarList(getAvatars);
+			setAvatarOptions(defaultRobot);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	const deleteAvatar = (keyN: string) => {
 		try {
 			window.localStorage.removeItem(keyN);
@@ -33,5 +48,5 @@ export const useOnUpdateAvatarList = () => {
 		}
 	};
 
-	return { getAvatars, deleteAvatar };
+	return { getAvatars, deleteAvatar, saveAvatar };
 };

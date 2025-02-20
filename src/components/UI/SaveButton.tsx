@@ -1,27 +1,27 @@
-import { PropsWithChildren } from 'react'
-import '../../styles/UI/SaveButton.css'
+import { PropsWithChildren, useContext } from 'react';
+import '../../styles/UI/SaveButton.css';
+import { AvatarContext } from '../../context';
+import { useOnUpdateAvatarList } from '../../Hooks';
+import { buildURL } from '../../Services';
 
-interface Props {
-  disabled: boolean
-  handleOnClick: ()=>void
-}
+const SaveButton = ({ children }: PropsWithChildren) => {
+	const { avatarOptions } = useContext(AvatarContext);
+	const { saveAvatar } = useOnUpdateAvatarList();
 
-const SaveButton = (props:PropsWithChildren<Props>) => {
-  const {children, disabled, handleOnClick} = props
-  
-  return (
-    <>
-      <button
-        className="save_button"
-        disabled={disabled}
-        onClick = {handleOnClick}
-      >
-        <span>
-          {children}
-        </span>
-      </button>
-    </>
-  )
-}
+	const handleOnClick = () => {
+		saveAvatar(buildURL(avatarOptions), avatarOptions?.name);
+	};
+	return (
+		<>
+			<button
+				className='save_button'
+				disabled={avatarOptions?.name === '' ? true : false}
+				onClick={handleOnClick}
+			>
+				<span>{children}</span>
+			</button>
+		</>
+	);
+};
 
-export default SaveButton
+export default SaveButton;
