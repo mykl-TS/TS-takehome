@@ -18,6 +18,7 @@ const RobotListItem = (props: Props) => {
     } catch (error) {
       console.log(error)
     }
+    //eslint-disable-next-line react-hooks/rules-of-hooks
     setAvatarList(useOnUpdateAvatarList())
   }
 

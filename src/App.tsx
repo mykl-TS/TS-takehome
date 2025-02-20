@@ -12,7 +12,6 @@ function App() {
       <div className="main">
         <div className="avatar_creator">
           <SaveButton>+</SaveButton>
-
           <AvatarPreview />
           <div className="row">
             <TextInput label="" name="avatar_name" placeholder="Name Me!" />

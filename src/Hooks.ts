@@ -5,7 +5,7 @@ export const useOnUpdateAvatarList = () => {
     const keys = Object.keys(window.localStorage)
     const aList: AvatarList = []
     keys.forEach(key => {
-      let item = window.localStorage.getItem(key) || "{URL:'undefined', name: 'undefined'}"
+      const item = window.localStorage.getItem(key) || "{URL:'undefined', name: 'undefined'}"
       const avatar = JSON.parse(item)
       avatar.key = key
       aList.push(avatar)

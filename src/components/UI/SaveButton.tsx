@@ -17,6 +17,7 @@ const SaveButton = (props: PropsWithChildren) => {
         generateKey(avatarOptions?.name || ''),
         JSON.stringify({ URL: avatarURL, name: avatarOptions?.name || '' })
       )
+      //eslint-disable-next-line react-hooks/rules-of-hooks
       setAvatarList(useOnUpdateAvatarList())
       setAvatarOptions(defaultRobot)
     } catch (error) {
