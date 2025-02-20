@@ -12,14 +12,8 @@ import './styles/App.css';
 
 function App() {
 	const [avatarOptions, setAvatarOptions] = useState(defaultRobot);
-	const avatarData = useOnUpdateAvatarList();
-	const [avatarList, setAvatarList] = useState(avatarData);
-
-	const updateName = () => {
-		const _O = { ...avatarOptions };
-		_O.name = event?.target.value;
-		setAvatarOptions(_O);
-	};
+	const { getAvatars } = useOnUpdateAvatarList();
+	const [avatarList, setAvatarList] = useState(getAvatars);
 
 	return (
 		<div className='app_container'>
@@ -33,10 +27,8 @@ function App() {
 								<div className='row'>
 									<TextInput
 										label=''
-										value={avatarOptions?.name || ''}
 										name='avatar_name'
 										placeholder='Name Me!'
-										handleOnChange={updateName}
 									/>
 								</div>
 								<div className='row'>
