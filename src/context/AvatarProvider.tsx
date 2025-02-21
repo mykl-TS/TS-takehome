@@ -7,19 +7,19 @@ export const AvatarURLContext = createContext('');
 export const AvatarListContext = createContext({});
 
 const AvatarProvider = ({ children }: PropsWithChildren) => {
-	const [avatarOptions, setAvatarOptions] = useState(defaultRobot);
-	const { getAvatars } = useOnUpdateAvatarList();
-	const [avatarList, setAvatarList] = useState(getAvatars);
+  const [avatarOptions, setAvatarOptions] = useState(defaultRobot);
+  const { getAvatars } = useOnUpdateAvatarList();
+  const [avatarList, setAvatarList] = useState(getAvatars);
 
-	return (
-		<AvatarContext.Provider value={{ avatarOptions, setAvatarOptions }}>
-			<AvatarURLContext.Provider value={buildURL(avatarOptions)}>
-				<AvatarListContext.Provider value={{ avatarList, setAvatarList }}>
-					{children}
-				</AvatarListContext.Provider>
-			</AvatarURLContext.Provider>
-		</AvatarContext.Provider>
-	);
+  return (
+    <AvatarContext.Provider value={{ avatarOptions, setAvatarOptions }}>
+      <AvatarURLContext.Provider value={buildURL(avatarOptions)}>
+        <AvatarListContext.Provider value={{ avatarList, setAvatarList }}>
+          {children}
+        </AvatarListContext.Provider>
+      </AvatarURLContext.Provider>
+    </AvatarContext.Provider>
+  );
 };
 
 export default AvatarProvider;

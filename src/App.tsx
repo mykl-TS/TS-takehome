@@ -8,29 +8,29 @@ import RobotList from './components/RobotList/RobotList';
 import './styles/App.css';
 
 function App() {
-	return (
-		<div className='app_container'>
-			<AvatarProvider>
-				<div className='main'>
-					<div className='avatar_creator'>
-						<SaveButton>+</SaveButton>
-						<AvatarPreview />
-						<div className='row'>
-							<TextInput label='' name='avatar_name' placeholder='Name Me!' />
-						</div>
-						<div className='row'>
-							<ColorPicker label='Color' optionKey='baseColor' />
-							<ColorPicker label='Background' optionKey='backgroundColor' />
-						</div>
-						<OptionsPicker />
-					</div>
-					<div className='avatar_list'>
-						<RobotList />
-					</div>
-				</div>
-			</AvatarProvider>
-		</div>
-	);
+  return (
+    <div className='app_container'>
+      <AvatarProvider>
+        <div className='main'>
+          <div className='avatar_creator'>
+            <SaveButton>+</SaveButton>
+            <AvatarPreview />
+            <div className='row'>
+              <TextInput label='' name='avatar_name' placeholder='Name Me!' />
+            </div>
+            <div className='row'>
+              <ColorPicker label='Color' optionKey='baseColor' />
+              <ColorPicker label='Background' optionKey='backgroundColor' />
+            </div>
+            <OptionsPicker />
+          </div>
+          <div className='avatar_list'>
+            <RobotList />
+          </div>
+        </div>
+      </AvatarProvider>
+    </div>
+  );
 }
 
 export default App;
